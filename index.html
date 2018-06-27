@@ -4,29 +4,33 @@
 <head>
   <title>QRCode Scanner</title>
   <script type="text/javascript" src="instascan.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js
+"></script>
 </head>
 
 <body>
   <video id="preview"></video>
+  <br/>
   <input type="text" value="QRCode" id="content">
+  <button onclick="copyTo()">Copy QRCode</button>
+
   <script type="text/javascript">
+  function copyTo() {
+    /* Get the text field */
+    var copyText = document.getElementById("content");
+    /* Select the text field */
+    copyText.select();
+    /* Copy the text inside the text field */
+    var result = document.execCommand("copy");
+    alert("QRCode has been copied to clipboard.");
+  }
+
   let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
   scanner.addListener('scan', function(content) {
     console.log(content);
-    document.getElementById('content').value=content
-    /* Get the text field */
-    var copyText = document.getElementById("content");
-
-    /* Select the text field */
-    copyText.select();
-
-    /* Copy the text inside the text field */
-    document.execCommand("copy");
-
-    /* Alert the copied text */
-    alert("QRCode has been copied to clipboard.");
-    
+    document.getElementById('content').value = content
   });
+
   Instascan.Camera.getCameras().then(function(cameras) {
     if (cameras.length > 0) {
       scanner.start(cameras[0]);
