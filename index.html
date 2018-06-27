@@ -14,6 +14,18 @@
   scanner.addListener('scan', function(content) {
     console.log(content);
     document.getElementById('content').innerHTML=content
+    /* Get the text field */
+    var copyText = document.getElementById("content");
+
+    /* Select the text field */
+    copyText.select();
+
+    /* Copy the text inside the text field */
+    document.execCommand("copy");
+
+    /* Alert the copied text */
+    alert("QRCode has been copied to clipboard.");
+    
   });
   Instascan.Camera.getCameras().then(function(cameras) {
     if (cameras.length > 0) {
